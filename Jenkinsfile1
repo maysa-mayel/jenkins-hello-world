@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "M398"
+    }
+
+    stages {
+        stage ('echo version'){
+            steps{
+                sh 'echo maven version'
+                sh 'mvn --version'
+            }
+        }
+        stage ('build'){
+            steps{
+               // git branch: 'main ', url: 'https://github.com/dasher-org/jenkins-hello-world.git'
+                sh 'mvn clean package -DskipTests=true'
+
+            }
+        }
+        stage ('test'){
+            steps{
+                sh 'mvn test'
+
+            }
+        }
+  
+        
+    }
+}
