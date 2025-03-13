@@ -7,31 +7,29 @@ pipeline {
     }
 
     stages {
-        stage ('echo version'){
-            steps{
-                sh 'echo maven version'
+        stage ('Echo Version') {
+            steps {
+                sh 'echo "Maven Version:"'
                 sh 'mvn --version'
             }
         }
-        stage ('build'){
-            steps{
-               // git branch: 'main ', url: 'https://github.com/dasher-org/jenkins-hello-world.git'
+        stage ('Build') {
+            steps {
+                // Uncomment this line if you need to pull from Git
+                // git branch: 'main', url: 'https://github.com/dasher-org/jenkins-hello-world.git'
                 sh 'mvn clean package -DskipTests=true'
-
             }
         }
-        stage ('test'){
-            steps{
-                script{
-                    for (int i=0; i<60; i++){
-                        echo "$(i+1)"
-                        sleep 1}
+        stage ('Test') {
+            steps {
+                script {
+                    for (int i = 0; i < 60; i++) {
+                        echo "${i + 1}"
+                        sleep 1
+                    }
                 }
                 sh 'mvn test'
-
             }
         }
-  
-        
     }
 }
